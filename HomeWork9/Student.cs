@@ -11,5 +11,7 @@ namespace HomeWork9
         public string Surname { get; set; }
 
         public List<int> Marks { get; set; } = new List<int>() ;
+
+        
     }
 }

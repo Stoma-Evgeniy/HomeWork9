@@ -10,23 +10,47 @@ namespace HomeWork9
         {
             Console.WriteLine("Добрый день");
 
-            Console.WriteLine("Имя");
-            string name = Console.ReadLine();
-            Console.WriteLine("Фамилия");
-            string surname = Console.ReadLine();
+            List<Student> students = new List<Student>();
 
-            new Student()
+            for (int i = 0; i < 100; i++)
             {
-                Name = name,
-                Surname = surname,
-            };
+                Console.WriteLine("Вы хотите\nсоздать-1\nредактировать-2\nудалить-3\nпросмотреть-4");
+                int a = int.Parse(Console.ReadLine());
+                switch (a)
+                {
+                    case 1:
 
-            foreach (string s in StudentsGroup.Students)
-            {
-                Console.WriteLine(s);
-            };
+                        Console.WriteLine("Имя");
+                        string name = Console.ReadLine();
+                        Console.WriteLine("Фамилия");
+                        string surname = Console.ReadLine();
+
+                        new Student()
+                        {
+                            Name = name,
+                            Surname = surname,
+                        };
 
 
+                        break;
+                    case 2:
+
+
+                        break;
+                    case 3:
+                        
+                        break;
+                    case 4:
+                        foreach (var s in students)
+                        {
+                            Console.WriteLine(s);
+                        };
+
+                        break;
+                }
+
+            }
+                        
         }
     }
 }
