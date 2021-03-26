@@ -31,9 +31,11 @@ namespace HomeWork9
                             Surname = surname,
                         };
 
+                        students.Add(Student);
 
                         break;
                     case 2:
+
 
 
                         break;
