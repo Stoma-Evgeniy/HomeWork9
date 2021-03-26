@@ -21,7 +21,10 @@ namespace HomeWork9
                 Surname = surname,
             };
 
-            Console.WriteLine(StudentsGroup.Students);
+            foreach (string s in StudentsGroup.Students)
+            {
+                Console.WriteLine(s);
+            };
 
 
         }
