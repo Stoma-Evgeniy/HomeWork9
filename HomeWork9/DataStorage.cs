@@ -6,7 +6,13 @@ namespace HomeWork9
 {
     public class DataStorage
     {
-               
+        public class WrongMarkException :ApplicationException
+        {
+            public WrongMarkException (string message):base(message)
+            {
+                
+            }
+        }
 
             public List<Student> Students { get; set; }
             public List<Group> Groups { get; set; }

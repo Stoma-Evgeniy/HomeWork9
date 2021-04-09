@@ -1,19 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using static HomeWork9.DataStorage;
 
 namespace HomeWork9
 {
+
+    public class StudentsPublisher
+    {
+        public delegate void CreateStudent();
+        public event CreateStudent StudentNewCreated;
+
+        public void Process()
+        {
+            StudentNewCreated();
+        }
+    }
+
+    public class StudentsSubscriber
+    {
+        public string Name { get; set; }
+        public StudentsSubscriber(string name)
+        {
+            Name = name;
+        }
+        public void StudentNewHandler()
+        {
+            Console.WriteLine("Student was received");
+            Console.WriteLine($"Subscriber = {Name}");
+        }
+    }
+
+    
+
     partial class Program
     {
 
         static void Main(string[] args)
         {
+            StudentsPublisher studentsPublisher = new StudentsPublisher();
+            StudentsSubscriber teacher = new StudentsSubscriber("Учитель1");
+
+            studentsPublisher.StudentNewCreated += teacher.StudentNewHandler;
+            studentsPublisher.Process();
+
+
             Console.WriteLine("Добрый день");
 
             
-            Student student1 = new Student { ID = "1", Name = "Ivan", Surname = "Ivanov",  };
-            Student student2 = new Student { ID = "2", Name = "Petr", Surname = "Petrov",  };
+            Student student1 = new Student { ID = "1", Name = "Ivan", Surname = "Ivanov", };
+            Student student2 = new Student { ID = "2", Name = "Petr", Surname = "Petrov", };
 
             DataStorage.Instance.Students.Add(student1);
             DataStorage.Instance.Students.Add(student2);
@@ -33,7 +69,8 @@ namespace HomeWork9
                     "\nсоздать группу-5" +
                     "\nредактировать группу-6" +
                     "\nудалить группу-7" +
-                    "\nпросмотреть список групп-8");
+                    "\nпросмотреть список групп-8"+
+                    "\nдобавить оценку-9");
                 int command = int.Parse(Console.ReadLine());
 
                 switch (command)
@@ -53,7 +90,8 @@ namespace HomeWork9
                         PrintStudents(DataStorage.Instance.Students);
                         break;
                     case 5:
-                        InputNewGroup();
+                        var newGroup = InputNewGroup();
+                        DataStorage.Instance.Groups.Add(newGroup);
                         break;
                     case 6:
                         EditGroup();
@@ -63,11 +101,27 @@ namespace HomeWork9
                         break;
                     case 8:
                         PrintGroups(DataStorage.Instance.Groups);
-                        break;                   
+                        break;
+                    /*case 9:
+                        try
+                        {
+                            student1.AddMark(7);
+
+                        }
+                        catch (WrongMarkException exc)
+                        {
+                            Console.WriteLine(exc);
+                        };
+                        break;*/
                 }
 
             }
 
+        }
+
+        private static void StudentsPublisher_StudentNewCreated()
+        {
+            throw new NotImplementedException();
         }
 
         private static Group InputNewGroup()
@@ -169,7 +223,7 @@ namespace HomeWork9
         {
             foreach (var s in students)
             {
-                Console.WriteLine($"{s.ID} {s.Name} {s.Surname} {s.Group?.Number}");
+                Console.WriteLine($"{s.ID} {s.Name} {s.Surname} {s.Group?.Number} {s.Marks}");
             };
         }
 
